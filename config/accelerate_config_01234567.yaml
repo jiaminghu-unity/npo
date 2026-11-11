@@ -1,0 +1,55 @@
+# Accelerate Configuration for Multi-GPU Training
+# This file configures distributed training settings
+
+# Environment type - LOCAL_MACHINE for single machine multi-GPU
+compute_environment: LOCAL_MACHINE
+
+# Distributed training type - MULTI_GPU for multi-GPU training
+distributed_type: MULTI_GPU
+
+# Whether to downcast bfloat16 to float16 (usually not needed)
+downcast_bf16: 'no'
+
+# Which GPUs to use - 'all' uses all available GPUs
+# You can also specify specific GPUs like '0,1,2,3'
+gpu_ids: 0,1,2,3
+
+# Rank of this machine in multi-machine setup (0 for single machine)
+machine_rank: 0
+
+# IP address of the main process (localhost for single machine)
+main_process_ip: localhost
+
+# Port for distributed communication (changed from 29500 to avoid conflicts)
+# main_process_port: 12121
+
+# Name of the main training function in your script
+main_training_function: main
+
+# Mixed precision training - fp16 for faster training and less memory usage
+mixed_precision: fp16
+
+# Number of machines in the cluster (1 for single machine)
+num_machines: 1
+
+# Number of processes (should match number of GPUs you want to use)
+# Change this based on your available GPUs
+num_processes: 4
+
+# Rendezvous backend for process coordination
+rdzv_backend: static
+
+# Whether all machines are on the same network
+same_network: true
+
+# TPU environment settings (not used for GPU training)
+tpu_env: []
+
+# TPU cluster settings (not used for GPU training)
+tpu_use_cluster: false
+
+# Whether to use sudo for TPU (not used for GPU training)
+tpu_use_sudo: false
+
+# Whether to use CPU (should be false for GPU training)
+use_cpu: false 
