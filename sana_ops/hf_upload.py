@@ -44,6 +44,22 @@ SPECS = [
      "| average score | 0.2224 | 0.2860 | 0.3567 | 6.0573 | 1.1386 | 8.0995 |\n"
      "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
      "| win rate (%) | 66.0 | 69.7 | 55.5 | 62.9 | 64.3 | 57.8 |"),
+    ("sana-170-newnash-randjudge", f"{G}/tests/_pinned/randjudge-step170/transformer",
+     "Diff.-NPO, random judge, step 170",
+     NPO + ". Judge: at every training step one of PickScore / HPSv2 / CLIP / Aesthetics / ImageReward is drawn at random.",
+     "Intermediate checkpoint (the run was still training, inside the learning-rate warmup).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2222 | 0.2857 | 0.3563 | 6.0462 | 1.1240 | 8.0679 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 63.4 | 67.6 | 53.6 | 60.5 | 62.3 | 56.8 |"),
+    ("sana-170-newnash-avgrank", f"{G}/tests/_pinned/avgrank-step170/transformer",
+     "Diff.-NPO, average-rank judge, step 170",
+     NPO + ". Judge: average rank over PickScore / HPSv2 / CLIP / Aesthetics / ImageReward.",
+     "Intermediate checkpoint (the run was still training, inside the learning-rate warmup).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2224 | 0.2862 | 0.3570 | 6.0566 | 1.1408 | 8.1179 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 65.7 | 71.0 | 56.0 | 62.4 | 65.3 | 60.2 |"),
     ("sana-270-dpo-offline", f"{G}/tests/_pinned/dpo-best-270/transformer",
      "offline DPO, step 270 (best training-time eval)",
      DPO + ". Step 270 had the best training-time evaluation of the run (420 steps, early stop).",
