@@ -70,8 +70,16 @@ if __name__ == "__main__":
         readme = os.path.join(HERE, "README.md")
         with open(readme) as f:
             head = f.read().split("## Tables\n")[0]
+        paired_path = os.path.join(HERE, "analysis", "paired_npo_vs_onlinedpo.md")
+        paired = ""
+        if os.path.exists(paired_path):
+            with open(paired_path) as f:
+                paired = ("\n### NPO avg rank vs Online-DPO at equal steps, paired by prompt and seed "
+                          "(`analysis/paired_compare.py`)\n\nDelta = mean difference over prompts; 95% CI = bootstrap "
+                          "over prompts; p = two-sided sign-flip test; wins = share of prompt-seed pairs where the "
+                          "first model scores higher.\n" + f.read())
         with open(readme, "w") as f:
-            f.write(head + "## Tables\n\n" + buf.getvalue()
+            f.write(head + "## Tables\n\n" + buf.getvalue() + paired
                     + "\n### Majority cycles among the five reward models (`analysis/judge_cycles.py`)\n\n" + cycles)
         print("README.md updated")
     else:

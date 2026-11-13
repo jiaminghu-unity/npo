@@ -1,10 +1,11 @@
 # Results: Sana 0.6B (flow matching) runs and SD1.5 baselines
 
-Snapshot of 2026-11-13, about 17:20 UTC. The two NPO runs were stopped on 2026-11-13 09:53 UTC at steps 225
+Snapshot of 2026-11-13, about 21:00 UTC. The two NPO runs were stopped on 2026-11-13 09:53 UTC at steps 225
 (random judge) and 227 (average rank): their test results were flat from step 170 to step 210 (tests at 170,
 190, 200, 210). Step 200, the end of the learning-rate warmup, is taken as the final checkpoint of both runs.
 The offline DPO run finished earlier (early stop at step 420: 15 evaluations without a new best). The Online-DPO
-control (started 2026-11-13 00:27 UTC) is still training (step about 79; first test at step 70).
+control (started 2026-11-13 00:27 UTC) is still training (step about 95; tested at steps 70 and 90, further
+tests planned at 140, 170, 190, 200, 210, the steps at which NPO avg rank was tested).
 
 ## What was run
 
@@ -64,6 +65,7 @@ Average score, mean ± std over 5 seeds
 | DPO/270 | 0.2220 ± 0.0004 | 0.2849 ± 0.0005 | 0.3553 ± 0.0012 | 6.0321 ± 0.0155 | 1.1004 ± 0.0209 | 8.0567 ± 0.1469 |
 | DPO/380 | 0.2220 ± 0.0004 | 0.2849 ± 0.0005 | 0.3555 ± 0.0016 | 6.0306 ± 0.0160 | 1.1071 ± 0.0150 | 8.0658 ± 0.1545 |
 | Online-DPO-avgrank/70 | 0.2220 ± 0.0003 | 0.2853 ± 0.0005 | 0.3559 ± 0.0011 | 6.0411 ± 0.0189 | 1.1168 ± 0.0180 | 8.0324 ± 0.1348 |
+| Online-DPO-avgrank/90 | 0.2220 ± 0.0003 | 0.2853 ± 0.0005 | 0.3561 ± 0.0013 | 6.0423 ± 0.0173 | 1.1181 ± 0.0196 | 8.0409 ± 0.1366 |
 | NPO-randjudge/90 | 0.2221 ± 0.0003 | 0.2856 ± 0.0006 | 0.3563 ± 0.0013 | 6.0449 ± 0.0157 | 1.1248 ± 0.0154 | 8.0650 ± 0.1480 |
 | NPO-randjudge/130 | 0.2222 ± 0.0003 | 0.2856 ± 0.0005 | 0.3564 ± 0.0010 | 6.0498 ± 0.0155 | 1.1251 ± 0.0205 | 8.0684 ± 0.1437 |
 | NPO-randjudge/170 | 0.2222 ± 0.0003 | 0.2857 ± 0.0006 | 0.3563 ± 0.0014 | 6.0462 ± 0.0121 | 1.1240 ± 0.0148 | 8.0679 ± 0.1355 |
@@ -88,6 +90,7 @@ Win rate against the original model (%), mean ± std over 5 seeds
 | DPO/270 | 59.0 ± 1.6 | 56.6 ± 2.1 | 50.8 ± 2.6 | 51.0 ± 2.2 | 53.0 ± 3.4 | 54.8 ± 1.0 |
 | DPO/380 | 56.9 ± 2.6 | 54.1 ± 3.0 | 50.8 ± 1.2 | 50.6 ± 1.4 | 54.8 ± 1.4 | 55.9 ± 2.4 |
 | Online-DPO-avgrank/70 | 61.1 ± 2.8 | 67.0 ± 1.9 | 53.0 ± 1.6 | 58.8 ± 2.2 | 62.4 ± 0.6 | 54.5 ± 3.5 |
+| Online-DPO-avgrank/90 | 61.5 ± 1.3 | 65.9 ± 2.1 | 53.3 ± 1.9 | 59.9 ± 2.1 | 61.8 ± 2.1 | 56.0 ± 3.2 |
 | NPO-randjudge/90 | 59.9 ± 1.7 | 69.2 ± 1.4 | 54.0 ± 2.5 | 60.3 ± 1.4 | 63.8 ± 1.3 | 55.8 ± 2.6 |
 | NPO-randjudge/130 | 63.8 ± 1.6 | 68.4 ± 2.1 | 54.2 ± 3.2 | 62.2 ± 2.7 | 62.2 ± 2.7 | 58.2 ± 2.3 |
 | NPO-randjudge/170 | 63.4 ± 2.1 | 67.6 ± 2.3 | 53.6 ± 1.4 | 60.5 ± 2.2 | 62.3 ± 1.9 | 56.8 ± 3.0 |
@@ -129,8 +132,8 @@ Win rate against the original model (%), mean ± std over 5 seeds
 | 50 | +0.0133 | +0.0187 | +0.0100 | +0.0048 |
 | 60 | +0.0145 | +0.0250 | +0.0150 | +0.0077 |
 | 70 | +0.0205 | +0.0228 | +0.0181 | +0.0045 |
-| 80 | +0.0201 | +0.0290 | – | +0.0016 |
-| 90 | +0.0216 | +0.0295 | – | -0.0001 |
+| 80 | +0.0201 | +0.0290 | +0.0181 | +0.0016 |
+| 90 | +0.0216 | +0.0295 | +0.0185 | -0.0001 |
 | 100 | +0.0155 | +0.0317 | – | -0.0000 |
 | 120 | +0.0263 | +0.0297 | – | +0.0034 |
 | 140 | +0.0288 | +0.0367 | – | +0.0055 |
@@ -150,7 +153,22 @@ Win rate against the original model (%), mean ± std over 5 seeds
 | 400 | – | – | – | +0.0105 |
 | 420 | – | – | – | +0.0057 |
 
-Last evaluated step: NPO random judge 220, NPO avg rank 220, Online-DPO avg rank 70, offline DPO 420
+Last evaluated step: NPO random judge 220, NPO avg rank 220, Online-DPO avg rank 90, offline DPO 420
+
+### NPO avg rank vs Online-DPO at equal steps, paired by prompt and seed (`analysis/paired_compare.py`)
+
+Delta = mean difference over prompts; 95% CI = bootstrap over prompts; p = two-sided sign-flip test; wins = share of prompt-seed pairs where the first model scores higher.
+
+**NPO avg rank @90 minus Online-DPO @90** (500 prompts x 5 seeds)
+
+| metric | NPO avg rank @90 | Online-DPO @90 | delta | 95% CI | p | NPO avg rank @90 wins |
+|---|---|---|---|---|---|---|
+| PickScore | 0.2222 | 0.2220 | +0.0002 | [+0.0001, +0.0002] | <0.001 | 55.2% |
+| HPS (v2) | 0.2857 | 0.2853 | +0.0004 | [+0.0003, +0.0005] | <0.001 | 63.3% |
+| CLIP | 0.3563 | 0.3561 | +0.0002 | [-0.0001, +0.0005] | 0.148 | 51.4% |
+| Aesthetics | 6.0499 | 6.0423 | +0.0076 | [+0.0047, +0.0105] | <0.001 | 56.6% |
+| ImageReward | 1.1277 | 1.1181 | +0.0096 | [+0.0051, +0.0140] | <0.001 | 59.6% |
+| HPSv3 | 8.0598 | 8.0409 | +0.0189 | [+0.0021, +0.0358] | 0.027 | 51.4% |
 
 ### Majority cycles among the five reward models (`analysis/judge_cycles.py`)
 
