@@ -4,18 +4,16 @@ export RAY_API_SERVER_ADDRESS=http://127.0.0.1:8265
 GCS=gs://prism-training-apac/jiaming/npo-sana
 echo "== $(date '+%m/%d %H:%M:%S') nodes"
 gcloud compute instances list --filter="labels.project=npo-sana" --format="table[no-heading](name,zone.basename(),status,labels.pool,creationTimestamp.date('%m/%d %H:%M'))" 2>&1
-# Runs: two NPO runs (pools a, b) and, since 2026-11-13 00:27 UTC, the Online-DPO avg-rank control (pool d).
-# The offline DPO run (pool c) finished on 2026-11-12 18:05 UTC (early stop at step 420); it is not listed any more.
-echo "== keepers (expect 2: pools a+b, pool d)"; echo "keeper processes: $(pgrep -f "^/bin/bash ./keeper.s[h] [0-9]" | wc -l)"
-pgrep -f "keeper.sh 4 a:" >/dev/null || echo "KEEPER a/b NOT RUNNING"
+# Running: only the Online-DPO avg-rank control (pool d, since 2026-11-13 00:27 UTC).
+# Finished: offline DPO (early stop at step 420, 2026-11-12 18:05 UTC); the two NPO runs were stopped by the user
+# on 2026-11-13 09:53 UTC at steps 225 / 227 (test results flat from step 170 to 210); their nodes are gone.
+echo "== keeper (expect 1: pool d)"; echo "keeper processes: $(pgrep -f "^/bin/bash ./keeper.s[h] [0-9]" | wc -l)"
 pgrep -f "keeper.sh 4 d:" >/dev/null || echo "KEEPER d (online DPO) NOT RUNNING"
-tail -2 ~/npo_sana_dev/nodes/keeper.log | cut -c1-160
 tail -1 ~/npo_sana_dev/nodes/keeper_d.log | cut -c1-160
-echo "== archivers (expect 2) (keep every 10th step's weights in <run>/milestones/)"
-pgrep -f "archiver.sh 10 sana-newnash" >/dev/null || echo "ARCHIVER (npo runs) NOT RUNNING"
+echo "== archiver (expect 1) (keep every 10th step's weights in <run>/milestones/)"
 pgrep -f "archiver.sh 10 sana-onlinedpo" >/dev/null || echo "ARCHIVER (online DPO) NOT RUNNING"
-tail -2 ~/npo_sana_dev/archiver.log 2>/dev/null | cut -c1-160; tail -1 ~/npo_sana_dev/archiver_odpo.log 2>/dev/null | cut -c1-160
-for J in sana-newnash-randjudge-v1 sana-newnash-avgrank-v1 sana-onlinedpo-avgrank-v1; do
+tail -2 ~/npo_sana_dev/archiver_odpo.log 2>/dev/null | cut -c1-160
+for J in sana-onlinedpo-avgrank-v1; do
   echo "== $J: $(curl -s --max-time 20 "http://127.0.0.1:8265/api/jobs/$J" | python3 -c 'import sys,json; print(json.load(sys.stdin).get("status",""))' 2>/dev/null)"
   L=$(ray job logs $J 2>&1 | sed 's/^.*ip=\([0-9.]*\))[^ ]* /\1 /')
   echo "$L" | grep -a "sana_ray_job\] \(attempt\|worker\|training\|too many\)" | tail -3 | cut -c1-200

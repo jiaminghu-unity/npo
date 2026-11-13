@@ -1,9 +1,10 @@
 # Results: Sana 0.6B (flow matching) runs and SD1.5 baselines
 
-Snapshot of 2026-11-13, about 09:45 UTC. The two NPO runs are still training (step about 225 of at most
-2000; the learning-rate warmup ended at step 200). Their test results are flat from step 170 to step 210
-(tests at 170, 190, 200, 210). The Online-DPO control started on 2026-11-13 00:27 UTC (step about 43).
-The offline DPO run is finished (early stop at step 420: 15 evaluations without a new best).
+Snapshot of 2026-11-13, about 10:10 UTC. The two NPO runs were stopped on 2026-11-13 09:53 UTC at steps 225
+(random judge) and 227 (average rank): their test results were flat from step 170 to step 210 (tests at 170,
+190, 200, 210). Step 200, the end of the learning-rate warmup, is taken as the final checkpoint of both runs.
+The offline DPO run finished earlier (early stop at step 420: 15 evaluations without a new best). The Online-DPO
+control (started 2026-11-13 00:27 UTC) is still training (step about 45).
 
 ## What was run
 
