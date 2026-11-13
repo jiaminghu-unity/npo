@@ -1,8 +1,9 @@
 # Results: Sana 0.6B (flow matching) runs and SD1.5 baselines
 
-Snapshot of 2026-11-12, about 21:00 UTC. The two NPO runs are still training (step about 165 of at most
-2000; the learning-rate warmup ends at step 200), so their numbers are intermediate. The offline DPO run
-is finished (early stop at step 420: 15 evaluations without a new best).
+Snapshot of 2026-11-13, about 02:00 UTC. The two NPO runs are still training (step about 190 of at most
+2000; the learning-rate warmup ends at step 200), so their numbers are intermediate. The Online-DPO control
+started on 2026-11-13 00:27 UTC. The offline DPO run is finished (early stop at step 420: 15 evaluations
+without a new best).
 
 ## What was run
 
@@ -10,6 +11,7 @@ is finished (early stop at step 420: 15 evaluations without a new best).
 |---|---|---|---|
 | `sana-newnash-randjudge-v1` | Diff.-NPO (`newnash`) | online, 8 candidates per prompt; at every training step one of the five reward models is drawn at random as the judge | 4 x A100 |
 | `sana-newnash-avgrank-v1` | Diff.-NPO (`newnash`) | online, 8 candidates per prompt; judge = average rank over the five reward models (as in the paper) | 4 x A100 |
+| `sana-onlinedpo-avgrank-v1` | Online-DPO (`online_dpo`) | identical to the avg-rank NPO run (same seed, sampler, judge and hyper-parameters); only the loss differs | 4 x A100 |
 | `sana-dpo-offline-v1` | offline flow-matching DPO | 294,418 human-labelled Pick-a-Pic v1 pairs (label 0/1, SFW subset) | 2 x A100 |
 
 Model: `Efficient-Large-Model/Sana_600M_512px_diffusers`. The configuration mirrors the SD1.5 `newnash`
@@ -62,8 +64,10 @@ Average score, mean ± std over 5 seeds
 | DPO/380 | 0.2220 ± 0.0004 | 0.2849 ± 0.0005 | 0.3555 ± 0.0016 | 6.0306 ± 0.0160 | 1.1071 ± 0.0150 | 8.0658 ± 0.1545 |
 | NPO-randjudge/90 | 0.2221 ± 0.0003 | 0.2856 ± 0.0006 | 0.3563 ± 0.0013 | 6.0449 ± 0.0157 | 1.1248 ± 0.0154 | 8.0650 ± 0.1480 |
 | NPO-randjudge/130 | 0.2222 ± 0.0003 | 0.2856 ± 0.0005 | 0.3564 ± 0.0010 | 6.0498 ± 0.0155 | 1.1251 ± 0.0205 | 8.0684 ± 0.1437 |
+| NPO-randjudge/170 | 0.2222 ± 0.0003 | 0.2857 ± 0.0006 | 0.3563 ± 0.0014 | 6.0462 ± 0.0121 | 1.1240 ± 0.0148 | 8.0679 ± 0.1355 |
 | NPO-avgrank/90 | 0.2222 ± 0.0003 | 0.2857 ± 0.0004 | 0.3563 ± 0.0012 | 6.0499 ± 0.0169 | 1.1277 ± 0.0175 | 8.0598 ± 0.1277 |
 | NPO-avgrank/140 | 0.2224 ± 0.0003 | 0.2860 ± 0.0005 | 0.3567 ± 0.0012 | 6.0573 ± 0.0114 | 1.1386 ± 0.0141 | 8.0995 ± 0.1299 |
+| NPO-avgrank/170 | 0.2224 ± 0.0003 | 0.2862 ± 0.0005 | 0.3570 ± 0.0013 | 6.0566 ± 0.0141 | 1.1408 ± 0.0125 | 8.1179 ± 0.1412 |
 
 Win rate against the original model (%), mean ± std over 5 seeds
 
@@ -77,8 +81,10 @@ Win rate against the original model (%), mean ± std over 5 seeds
 | DPO/380 | 56.9 ± 2.6 | 54.1 ± 3.0 | 50.8 ± 1.2 | 50.6 ± 1.4 | 54.8 ± 1.4 | 55.9 ± 2.4 |
 | NPO-randjudge/90 | 59.9 ± 1.7 | 69.2 ± 1.4 | 54.0 ± 2.5 | 60.3 ± 1.4 | 63.8 ± 1.3 | 55.8 ± 2.6 |
 | NPO-randjudge/130 | 63.8 ± 1.6 | 68.4 ± 2.1 | 54.2 ± 3.2 | 62.2 ± 2.7 | 62.2 ± 2.7 | 58.2 ± 2.3 |
+| NPO-randjudge/170 | 63.4 ± 2.1 | 67.6 ± 2.3 | 53.6 ± 1.4 | 60.5 ± 2.2 | 62.3 ± 1.9 | 56.8 ± 3.0 |
 | NPO-avgrank/90 | 62.4 ± 2.8 | 68.8 ± 2.5 | 53.8 ± 1.6 | 62.6 ± 0.9 | 63.3 ± 1.0 | 55.9 ± 1.1 |
 | NPO-avgrank/140 | 66.0 ± 3.3 | 69.7 ± 1.9 | 55.5 ± 2.3 | 62.9 ± 3.2 | 64.3 ± 2.4 | 57.8 ± 1.5 |
+| NPO-avgrank/170 | 65.7 ± 3.4 | 71.0 ± 2.0 | 56.0 ± 1.5 | 62.4 ± 1.8 | 65.3 ± 2.5 | 60.2 ± 1.6 |
 
 ### SD1.5 baselines (original eval.py; `none` = the official checkpoint)
 
@@ -99,22 +105,37 @@ Win rate against the original model (%), mean ± std over 5 seeds
 
 ### Training-time eval gain (256 PartiPrompts, mean over the five reward models of the standardized improvement over step 0)
 
-| step | NPO random judge | NPO avg rank | offline DPO |
-|---|---|---|---|
-| 40 | +0.0178 | +0.0155 | +0.0014 |
-| 80 | +0.0201 | +0.0290 | +0.0016 |
-| 120 | +0.0263 | +0.0297 | +0.0034 |
-| 160 | +0.0366 | +0.0441 | +0.0043 |
-| 200 | – | – | +0.0033 |
-| 240 | – | – | +0.0103 |
-| 270 | – | – | +0.0186 |
-| 280 | – | – | +0.0102 |
-| 320 | – | – | +0.0119 |
-| 360 | – | – | +0.0118 |
-| 400 | – | – | +0.0105 |
-| 420 | – | – | +0.0057 |
+| step | NPO random judge | NPO avg rank | Online-DPO avg rank | offline DPO |
+|---|---|---|---|---|
+| 10 | +0.0017 | +0.0038 | – | -0.0000 |
+| 20 | +0.0055 | +0.0073 | – | +0.0017 |
+| 30 | +0.0085 | +0.0098 | – | +0.0001 |
+| 40 | +0.0178 | +0.0155 | – | +0.0014 |
+| 50 | +0.0133 | +0.0187 | – | +0.0048 |
+| 60 | +0.0145 | +0.0250 | – | +0.0077 |
+| 70 | +0.0205 | +0.0228 | – | +0.0045 |
+| 80 | +0.0201 | +0.0290 | – | +0.0016 |
+| 90 | +0.0216 | +0.0295 | – | -0.0001 |
+| 100 | +0.0155 | +0.0317 | – | -0.0000 |
+| 120 | +0.0263 | +0.0297 | – | +0.0034 |
+| 140 | +0.0288 | +0.0367 | – | +0.0055 |
+| 160 | +0.0366 | +0.0441 | – | +0.0043 |
+| 180 | +0.0372 | +0.0433 | – | +0.0117 |
+| 200 | – | – | – | +0.0033 |
+| 220 | – | – | – | +0.0113 |
+| 240 | – | – | – | +0.0103 |
+| 260 | – | – | – | +0.0157 |
+| 270 | – | – | – | +0.0186 |
+| 280 | – | – | – | +0.0102 |
+| 300 | – | – | – | +0.0165 |
+| 320 | – | – | – | +0.0119 |
+| 340 | – | – | – | +0.0090 |
+| 360 | – | – | – | +0.0118 |
+| 380 | – | – | – | +0.0119 |
+| 400 | – | – | – | +0.0105 |
+| 420 | – | – | – | +0.0057 |
 
-Last evaluated step: NPO random judge 160, NPO avg rank 160, offline DPO 420
+Last evaluated step: NPO random judge 180, NPO avg rank 190, Online-DPO avg rank 0, offline DPO 420
 
 ### Majority cycles among the five reward models (`analysis/judge_cycles.py`)
 

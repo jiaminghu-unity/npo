@@ -22,7 +22,7 @@ GCS_ROOT="${GCS_ROOT:-gs://prism-training-us/jiaming/npo-sana}"
 export RAY_API_SERVER_ADDRESS="${RAY_API_SERVER_ADDRESS:-http://127.0.0.1:8265}"
 
 ray job submit --no-wait --submission-id "$RUN_NAME" \
-  --runtime-env-json '{"working_dir": ".", "excludes": [".git", "output.log", "__pycache__", "utils", "tmp-*"]}' \
+  --runtime-env-json '{"working_dir": ".", "excludes": [".git", "output.log", "__pycache__", "utils", "tmp-*", "results", "sana_ops"]}' \
   -- python3 launchers/sana_ray_job.py --num_gpus "$NUM_GPUS" ${NODE_RESOURCE:+--node_resource "$NODE_RESOURCE"} \
   --train_method newnash \
   --train_batch_size 8 \
