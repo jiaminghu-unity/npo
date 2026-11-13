@@ -26,6 +26,11 @@ NPO = ("Diff.-NPO (`newnash`), online: 8 candidates per prompt sampled from the 
 DPO = ("offline flow-matching DPO on 294,418 human-labelled Pick-a-Pic v1 pairs; 2048 pairs per optimizer step, "
        "lr 2.048e-5 (200 warmup steps), beta 5000")
 
+ODPO = ("Online-DPO (`online_dpo`): the same online pipeline as the Diff.-NPO average-rank run (8 candidates per prompt "
+        "sampled from the current model with 10 steps, best / worst by average rank over PickScore / HPSv2 / CLIP / "
+        "Aesthetics / ImageReward, same seed and hyper-parameters); only the loss differs (DPO loss against the original "
+        "model, beta 5000)")
+
 # repo name, bucket path of the 'transformer' folder, title, method text, results text
 SPECS = [
     ("sana-130-newnash-randjudge", f"{G}/tests/_pinned/randjudge-step130/transformer",
@@ -124,6 +129,14 @@ SPECS = [
      "Diff.-NPO, average-rank judge, step 226 (last checkpoint)",
      NPO + ". Judge: average rank over PickScore / HPSv2 / CLIP / Aesthetics / ImageReward.",
      "Last checkpoint: the run was stopped at step 227 because its test results had been flat since step 170. This step was not tested. The tests of the same run at steps 170, 190, 200 and 210 were flat; step 200: win rate (%) PickScore 66.2, HPS (v2) 71.3, CLIP 53.9, Aesthetics 62.4, ImageReward 64.8, HPSv3 59.8."),
+    ("sana-70-onlinedpo-avgrank", f"{G}/tests/_pinned/onlinedpo-step70/transformer",
+     "Online-DPO, average-rank judge, step 70",
+     ODPO + ".",
+     "Intermediate checkpoint (the run was still training, inside the learning-rate warmup).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2220 | 0.2853 | 0.3559 | 6.0411 | 1.1168 | 8.0324 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 61.1 | 67.0 | 53.0 | 58.8 | 62.4 | 54.5 |"),
     ("sana-270-dpo-offline", f"{G}/tests/_pinned/dpo-best-270/transformer",
      "offline DPO, step 270 (best training-time eval)",
      DPO + ". Step 270 had the best training-time evaluation of the run (420 steps, early stop).",
