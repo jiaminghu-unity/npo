@@ -76,6 +76,38 @@ SPECS = [
      "| average score | 0.2225 | 0.2862 | 0.3567 | 6.0607 | 1.1397 | 8.1241 |\n"
      "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
      "| win rate (%) | 66.2 | 71.3 | 53.9 | 62.4 | 64.8 | 59.8 |"),
+    ("sana-190-newnash-randjudge", f"{G}/tests/_pinned/randjudge-step190/transformer",
+     "Diff.-NPO, random judge, step 190",
+     NPO + ". Judge: at every training step one of PickScore / HPSv2 / CLIP / Aesthetics / ImageReward is drawn at random.",
+     "Intermediate checkpoint (the run was still training).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2223 | 0.2859 | 0.3567 | 6.0480 | 1.1321 | 8.1066 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 63.2 | 69.2 | 56.1 | 60.8 | 64.3 | 59.1 |"),
+    ("sana-210-newnash-randjudge", f"{G}/tests/_pinned/randjudge-step210/transformer",
+     "Diff.-NPO, random judge, step 210",
+     NPO + ". Judge: at every training step one of PickScore / HPSv2 / CLIP / Aesthetics / ImageReward is drawn at random.",
+     "Intermediate checkpoint (the run was still training).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2223 | 0.2857 | 0.3563 | 6.0536 | 1.1257 | 8.0713 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 65.3 | 67.1 | 54.3 | 61.7 | 61.4 | 56.3 |"),
+    ("sana-190-newnash-avgrank", f"{G}/tests/_pinned/avgrank-step190/transformer",
+     "Diff.-NPO, average-rank judge, step 190",
+     NPO + ". Judge: average rank over PickScore / HPSv2 / CLIP / Aesthetics / ImageReward.",
+     "Intermediate checkpoint (the run was still training).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2225 | 0.2861 | 0.3567 | 6.0584 | 1.1342 | 8.1096 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 67.2 | 69.8 | 54.3 | 63.6 | 64.0 | 59.4 |"),
+    ("sana-210-newnash-avgrank", f"{G}/tests/_pinned/avgrank-step210/transformer",
+     "Diff.-NPO, average-rank judge, step 210",
+     NPO + ". Judge: average rank over PickScore / HPSv2 / CLIP / Aesthetics / ImageReward.",
+     "Intermediate checkpoint (the run was still training).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2225 | 0.2862 | 0.3568 | 6.0593 | 1.1409 | 8.1142 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 67.0 | 70.2 | 54.9 | 62.0 | 64.4 | 59.1 |"),
     ("sana-270-dpo-offline", f"{G}/tests/_pinned/dpo-best-270/transformer",
      "offline DPO, step 270 (best training-time eval)",
      DPO + ". Step 270 had the best training-time evaluation of the run (420 steps, early stop).",
