@@ -153,6 +153,14 @@ SPECS = [
      "| average score | 0.2222 | 0.2855 | 0.3563 | 6.0452 | 1.1225 | 8.0662 |\n"
      "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
      "| win rate (%) | 63.2 | 66.0 | 53.6 | 60.6 | 60.6 | 57.3 |"),
+    ("sana-170-onlinedpo-avgrank", f"{G}/tests/_pinned/onlinedpo-step170/transformer",
+     "Online-DPO, average-rank judge, step 170",
+     ODPO + ".",
+     "Intermediate checkpoint (the run was still training, inside the learning-rate warmup).\n\n"
+     "| | PickScore | HPS (v2) | CLIP | Aesthetics | ImageReward | HPSv3 |\n|---|---|---|---|---|---|---|\n"
+     "| average score | 0.2222 | 0.2857 | 0.3561 | 6.0465 | 1.1295 | 8.0891 |\n"
+     "| original Sana | 0.2218 | 0.2847 | 0.3552 | 6.0293 | 1.0974 | 7.9932 |\n"
+     "| win rate (%) | 63.4 | 67.4 | 54.5 | 60.7 | 63.7 | 59.6 |"),
     ("sana-270-dpo-offline", f"{G}/tests/_pinned/dpo-best-270/transformer",
      "offline DPO, step 270 (best training-time eval)",
      DPO + ". Step 270 had the best training-time evaluation of the run (420 steps, early stop).",
