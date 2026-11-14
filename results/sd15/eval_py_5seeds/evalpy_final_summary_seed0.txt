@@ -1,0 +1,7 @@
+===== Final Summary =====
+Samples: 500
+Average - Orig. SD1.5   : PS 0.2052 | HPS 0.2648 | CLIP 0.3282 | AES 5.3847 | Image Reward -0.1750
+Average - Diffusion-DPO : PS 0.2088 | HPS 0.2691 | CLIP 0.3363 | AES 5.4894 | Image Reward 0.0299
+Average - Diffusion-KTO : PS 0.2114 | HPS 0.2764 | CLIP 0.3437 | AES 5.6464 | Image Reward 0.5389
+WinRate vs Orig. SD1.5    - Diffusion-DPO : PS 73.20% | HPS 70.60% | CLIP 59.20% | AES 63.00% | Image Reward 62.60%
+WinRate vs Orig. SD1.5    - Diffusion-KTO : PS 77.20% | HPS 84.40% | CLIP 61.60% | AES 73.20% | Image Reward 80.00%
